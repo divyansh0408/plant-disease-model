@@ -1,0 +1,302 @@
+<html>
+    <head>
+              <link rel="icon" href="static/favicon.ico" type="image/x-icon">
+
+<style>
+
+
+    /* style.css */
+html {
+    scroll-behavior: smooth;
+    scroll-padding: 100px;
+}
+
+
+body {
+    font-family: poppins, sans-serif;
+    background-color: #1c1c1c;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+      background-size: cover;
+    background-image: url('static/main_background.jpg');
+    cover:none;
+
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+header .logo h1 {
+     font-family: poppins, sans-serif;
+    font-size: 24px;
+    color:white;
+}
+
+header nav ul {
+    list-style-type: none;
+    display: flex;
+}
+
+header nav ul li {
+    margin: 0 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    transition: 0.3s;
+}
+
+header nav ul li a:hover {
+    background-color: #45a049;
+    border-radius: 5px;
+}
+
+
+
+
+#home .hero {
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+#home h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+#home p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    background-color: #34a0a4;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.4s;
+}
+
+.cta-button:hover {
+    background-color: #1a759f;
+}
+
+/* Section Padding */
+.section-padding {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+
+
+/* About Section */
+#about {
+    background-color: #f9f9f9;
+}
+
+#about h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#about p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+#services {
+    background-color: #fff;
+}
+
+#services h2 {
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+.services {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.service-box {
+    background-color: #e1e1e1;
+    padding: 20px;
+    width: 30%;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.service-box h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.service-box p {
+    font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+h1 {
+    color: #34a0a4;
+}
+
+form {
+    margin: 20px 0;
+}
+
+input[type="file"] {
+    padding: 10px;
+    margin: 10px 0;
+}
+/*4CAF50  */
+button {
+    background-color: #34a0a4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.4s;
+
+}
+
+
+button:hover {
+    background-color: #1a759f;
+
+}
+
+#prediction {
+    margin-top: 20px;
+}
+
+#result {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#confidence {
+    font-size: 16px;
+    color: gray;
+}
+
+
+</style>
+    </head>
+    <body>
+        
+    
+ <div class="container">
+        <h1>Plant Leaf Disease Detection</h1>
+        <p>Upload a plant leaf image to check  its health</p>
+
+        <!-- Upload Image Form -->
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="file" accept="image/*">
+            <button type="submit" >Upload Image</button>
+        </form>
+
+        <!-- Display prediction -->
+        <div id="prediction">
+             <p id="result"></p>
+             <p id="confidence"></p>
+             <!-- <p id="cure"></p> -->
+        
+     </div>
+            <a href="/" class="cta-button" >HOME</a>
+    </div>
+
+
+
+
+
+
+
+
+
+
+        
+
+
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Handle form submission
+            $('#uploadForm').on('submit', function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+
+                // Send POST request to Flask backend
+                $.ajax({
+                    url: '/predict',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.error) {
+                            $('#result').text('Error: ' + response.error);
+                            $('#confidence').text('');
+                            // $('#cure').text('');
+                        } else {
+                            
+                            $('#result').text('Disease  :  ' + response.class );
+                            // $('#confidence').text('Model Accuracy: ' +(response.confidence * 100).toFixed(2) + '%');
+                            // $('#cure').text('cure: ' + (response.cure);
+                        }
+                    },
+                    error: function() {
+                        $('#result').text('Error in prediction');
+                        $('#confidence').text('');
+                        // $('#cure').text('');
+                    }
+                });
+            });
+        });
+    </script> 
+
+
+        
+    </body>
+</html>

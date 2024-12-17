@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- navigation bar-->
+      <!-- Header Section -->
+    <header>
+        <div class="logo" >
+            <h1>Plant Disease Detection</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+
+
+     <!-- Main Section -->
+    <section id="home">
+        <div class="hero">
+            <h2>Welcome to the Plant Disease Detection System</h2>
+            <p>Upload your plant image and detect diseases instantly!</p>
+            <a href="/get_started" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+
+
+    
+<section id="about" class="section-padding">
+        <h2>About the Project</h2>
+        <p>This system uses machine learning to detect plant diseases based on the images you upload. It helps farmers and
+            gardeners take quick actions for their plants.</p>
+    </section>
+
+
+
+
+     <!-- Services Section -->
+    <section id="services" class="section-padding">
+        <h2>How It Works</h2>
+        <div class="services">
+            <div class="service-box">
+                <h3>Upload Image</h3>
+                <p>Upload a clear image of your plant to the system.</p>
+            </div>
+            <div class="service-box">
+                <h3>Prediction</h3>
+                <p>Our model processes the image and identifies the plant disease.</p>
+            </div>
+            <div class="service-box">
+                <h3>Solution</h3>
+                <p>Get recommendations on how to treat your plant based on the disease detected.</p>
+            </div>
+        </div>
+    </section>
+
+
+
+<!--model code and script code will come here in case main.html dosest work -->
+
+
+
+
+
+
+
+
+
+
+    
+  
+</body>
+</html>
